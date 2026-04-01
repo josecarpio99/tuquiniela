@@ -18,6 +18,8 @@
 
 - Cada jugada tiene un costo. Ex: $1.00. Debe ser configurable para cada quiniela.
 
+- El usuario podrá cambiar los pronósticos de su ticket mientras no haya cerrado la quiniela.
+
 ## Premios
 
 - El premio a repartir es un monto monetario. Las posiciones que reciben el premio se hacen de forma arbitraria, es decir, el premio puede ser  repartido para los primeros 2 o 3 posiciones, o bien solo para el 1er puesto.
@@ -36,19 +38,28 @@
 
 - A nivel de admin se debe tener un historial de balance para cada usuario.
 
-- Se debe tener un historial de depósitos para cada usuario.
+- Se debe tener un historial de movimientos de balance para cada usuario.
 
 
 ## Depósitos
 
 - Los usuario puede sumar dinero a su balance a través de depósitos.
 
-- Pueden  hacerlos a través de la app o bien a través de cajeros (terceros).
+- Inicialmente se trabajará con binance pay como metodo de pago. Estos serán procesados de manera manual.
 
-- Se manejarán diversos medios de pago para los depósitos.
+- Tener en cuenta que en un futuro se incorporarán otros métodos de pago como cripto, pago móvil, airtm ( método de pago en Venezuela), paypal... y pueden ser procesados de manera manual o automática.
 
-- Según el método de pago los depósitos se procesarán de forma manual o automática.
+- Tener en cuenta que los campos necesarios para cada método de pago varía, consideralo para hacer el módulo de pagos en depósitos y retiros fácilmente modificable y escalable. Ejemplos:
+  - Binance pay: requiere binance ID o correo
+  - CRIPTO: Dirección de pago
+  - Pago móvil: requiere télefono, cédula y banco
 
 ## Retiros
 
 - Mismos consideraciones que los depósitos.
+
+## Stack
+Laravel 13
+Filament 5
+Livewire
+Sqlite
