@@ -63,3 +63,7 @@ Laravel 13
 Filament 5
 Livewire
 Sqlite
+
+## packages
+
+bavix/laravel-wallet
