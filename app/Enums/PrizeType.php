@@ -17,8 +17,8 @@ enum PrizeType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
-            self::Fixed => 'Fixed Amount',
-            self::Percentage => 'Percentage of Sales',
+            self::Fixed => __('enums.prize_type.fixed'),
+            self::Percentage => __('enums.prize_type.percentage'),
         };
     }
 

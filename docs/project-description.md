@@ -67,3 +67,6 @@ Sqlite
 ## packages
 
 bavix/laravel-wallet
+
+## Languages
+Multidiomas - Español por defecto

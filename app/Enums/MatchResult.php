@@ -18,9 +18,9 @@ enum MatchResult: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
-            self::Team1 => 'Team 1 Wins',
-            self::Team2 => 'Team 2 Wins',
-            self::Draw => 'Draw',
+            self::Team1 => __('enums.match_result.team1'),
+            self::Team2 => __('enums.match_result.team2'),
+            self::Draw => __('enums.match_result.draw'),
         };
     }
 

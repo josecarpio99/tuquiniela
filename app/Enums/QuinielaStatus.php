@@ -19,10 +19,10 @@ enum QuinielaStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
-            self::Draft => 'Draft',
-            self::Open => 'Open',
-            self::Closed => 'Closed',
-            self::Completed => 'Completed',
+            self::Draft => __('enums.quiniela_status.draft'),
+            self::Open => __('enums.quiniela_status.open'),
+            self::Closed => __('enums.quiniela_status.closed'),
+            self::Completed => __('enums.quiniela_status.completed'),
         };
     }
 

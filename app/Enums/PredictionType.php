@@ -17,8 +17,8 @@ enum PredictionType: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
-            self::Result => 'Result',
-            self::Score => 'Score',
+            self::Result => __('enums.prediction_type.result'),
+            self::Score => __('enums.prediction_type.score'),
         };
     }
 

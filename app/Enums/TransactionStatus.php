@@ -18,9 +18,9 @@ enum TransactionStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string|Htmlable|null
     {
         return match ($this) {
-            self::Pending => 'Pending',
-            self::Approved => 'Approved',
-            self::Rejected => 'Rejected',
+            self::Pending => __('enums.transaction_status.pending'),
+            self::Approved => __('enums.transaction_status.approved'),
+            self::Rejected => __('enums.transaction_status.rejected'),
         };
     }
 
