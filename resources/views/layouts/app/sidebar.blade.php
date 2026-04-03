@@ -18,6 +18,19 @@
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
+            <flux:sidebar.nav>
+                <flux:sidebar.group :heading="__('Balance')" class="grid">
+                    <div class="px-3 py-2">
+                        <div class="text-2xl font-bold text-zinc-900 dark:text-white" data-test="sidebar-balance">
+                            ${{ number_format((float) auth()->user()->balanceFloat, 2) }}
+                        </div>
+                    </div>
+                    <flux:sidebar.item icon="clock" :href="route('balance.history')" :current="request()->routeIs('balance.history')" wire:navigate>
+                        {{ __('Transaction History') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+            </flux:sidebar.nav>
+
             <flux:spacer />
 
             <flux:sidebar.nav>

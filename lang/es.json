@@ -117,5 +117,15 @@
     "Matches": "Partidos",
 
     "deposit": "Depósito",
-    "withdraw": "Retiro"
+    "withdraw": "Retiro",
+
+    "Available Balance": "Saldo disponible",
+    "View transaction history": "Ver historial de transacciones",
+    "Current Balance": "Saldo actual",
+    "Your wallet activity and balance changes.": "Tu actividad de billetera y cambios de saldo.",
+    "No transactions yet": "Aún no hay transacciones",
+    "Your transaction history will appear here once you have activity.": "Tu historial de transacciones aparecerá aquí una vez que tengas actividad.",
+    "Description": "Descripción",
+    "Deposit": "Depósito",
+    "Withdrawal": "Retiro"
 }

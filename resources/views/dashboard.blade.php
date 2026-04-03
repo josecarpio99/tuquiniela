@@ -1,8 +1,16 @@
 <x-layouts::app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+            <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-zinc-900" data-test="balance-card">
+                <div class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ __('Available Balance') }}</div>
+                <div class="mt-2 text-3xl font-bold text-zinc-900 dark:text-white" data-test="dashboard-balance">
+                    ${{ number_format((float) auth()->user()->balanceFloat, 2) }}
+                </div>
+                <div class="mt-3">
+                    <a href="{{ route('balance.history') }}" class="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400" wire:navigate>
+                        {{ __('View transaction history') }} &rarr;
+                    </a>
+                </div>
             </div>
             <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
                 <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />

@@ -533,13 +533,13 @@ Create a Filament resource for managing football teams.
 
 ---
 
-## Phase 3: Wallet & Balance Integration
+## Phase 3: Wallet & Balance Integration [Completed]
 
 **Goal:** Set up bavix/laravel-wallet, display balance to players.
 
 **User Stories:** US-6.1, US-6.2
 
-### Phase 3.1: Wallet Configuration
+### Phase 3.1: Wallet Configuration [Completed]
 
 Configure the `bavix/laravel-wallet` package on the `User` model. Ensure every new user gets a default wallet upon creation.
 
@@ -555,7 +555,7 @@ Configure the `bavix/laravel-wallet` package on the `User` model. Ensure every n
 
 ---
 
-### Phase 3.2: Player Balance Display
+### Phase 3.2: Player Balance Display [Completed]
 
 Show current balance prominently on the player dashboard (US-6.1).
 
@@ -569,7 +569,7 @@ Show current balance prominently on the player dashboard (US-6.1).
 
 ---
 
-### Phase 3.3: Player Balance History Page
+### Phase 3.3: Player Balance History Page [Completed]
 
 Create a page where players can view their transaction history (US-6.2). This is a **controller + Blade view** (not Livewire), unless filtering requires dynamic behavior.
 
@@ -1376,10 +1376,10 @@ Overall player statistics across all quinielas (US-12.3).
 | **Phase 2.2** | User Management Filament Resource | ✅ Completed |
 | **Phase 2.3** | Admin Balance Management | ✅ Completed |
 | **Phase 2.4** | Team Management Filament Resource | ✅ Completed |
-| **Phase 3** | Wallet & Balance Integration | ⬜ Not Started |
-| **Phase 3.1** | Wallet Configuration | ⬜ Not Started |
-| **Phase 3.2** | Player Balance Display | ⬜ Not Started |
-| **Phase 3.3** | Player Balance History Page | ⬜ Not Started |
+| **Phase 3** | Wallet & Balance Integration | ✅ Completed |
+| **Phase 3.1** | Wallet Configuration | ✅ Completed |
+| **Phase 3.2** | Player Balance Display | ✅ Completed |
+| **Phase 3.3** | Player Balance History Page | ✅ Completed |
 | **Phase 4** | Design & Style Guidelines | ⬜ Not Started |
 | **Phase 4.1** | Visual Identity & Theme | ⬜ Not Started |
 | **Phase 4.2** | Layout & Navigation Patterns | ⬜ Not Started |
