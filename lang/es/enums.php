@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'prediction_type' => [
         'result' => 'Por resultado',

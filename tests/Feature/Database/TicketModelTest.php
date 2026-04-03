@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Prediction;
 use App\Models\Quiniela;
 use App\Models\Ticket;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Setting;
 
 it('can get a setting by key', function () {

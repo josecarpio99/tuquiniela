@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Database\Factories\TeamFactory;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Team extends Model implements HasMedia
+final class Team extends Model implements HasMedia
 {
     /** @use HasFactory<TeamFactory> */
     use HasFactory, InteractsWithMedia;

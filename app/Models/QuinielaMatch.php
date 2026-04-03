@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\MatchResult;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class QuinielaMatch extends Model
+final class QuinielaMatch extends Model
 {
     /** @use HasFactory<QuinielaMatchFactory> */
     use HasFactory;
@@ -23,15 +25,6 @@ class QuinielaMatch extends Model
         'team_1_score',
         'team_2_score',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'match_date' => 'datetime',
-            'team_1_score' => 'integer',
-            'team_2_score' => 'integer',
-        ];
-    }
 
     public function quiniela(): BelongsTo
     {
@@ -73,5 +66,14 @@ class QuinielaMatch extends Model
         }
 
         return MatchResult::Draw;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'match_date' => 'datetime',
+            'team_1_score' => 'integer',
+            'team_2_score' => 'integer',
+        ];
     }
 }

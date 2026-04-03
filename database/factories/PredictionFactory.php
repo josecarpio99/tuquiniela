@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\MatchResult;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Prediction>
  */
-class PredictionFactory extends Factory
+final class PredictionFactory extends Factory
 {
     public function definition(): array
     {

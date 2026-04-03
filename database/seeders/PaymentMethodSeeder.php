@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\PaymentMethod;
 use App\Models\PaymentMethodField;
 use Illuminate\Database\Seeder;
 
-class PaymentMethodSeeder extends Seeder
+final class PaymentMethodSeeder extends Seeder
 {
     public function run(): void
     {

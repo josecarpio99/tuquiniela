@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\MatchResult;
 use App\Models\Prediction;
 use App\Models\QuinielaMatch;

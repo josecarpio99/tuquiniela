@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\TransactionStatus;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Deposit extends Model implements HasMedia
+final class Deposit extends Model implements HasMedia
 {
     /** @use HasFactory<DepositFactory> */
     use HasFactory, InteractsWithMedia;
@@ -26,17 +28,6 @@ class Deposit extends Model implements HasMedia
         'rejected_at',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'status' => TransactionStatus::class,
-            'payment_details' => 'array',
-            'amount' => 'decimal:2',
-            'approved_at' => 'datetime',
-            'rejected_at' => 'datetime',
-        ];
-    }
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('proof')->singleFile();
@@ -50,5 +41,16 @@ class Deposit extends Model implements HasMedia
     public function paymentMethod(): BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'status' => TransactionStatus::class,
+            'payment_details' => 'array',
+            'amount' => 'decimal:2',
+            'approved_at' => 'datetime',
+            'rejected_at' => 'datetime',
+        ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\PaymentMethod;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<PaymentMethodField>
  */
-class PaymentMethodFieldFactory extends Factory
+final class PaymentMethodFieldFactory extends Factory
 {
     public function definition(): array
     {

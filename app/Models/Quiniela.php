@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\PredictionType;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Quiniela extends Model
+final class Quiniela extends Model
 {
     /** @use HasFactory<QuinielaFactory> */
     use HasFactory;
@@ -29,17 +31,6 @@ class Quiniela extends Model
         'prize_pool_amount',
         'prize_pool_percentage',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'prediction_type' => PredictionType::class,
-            'status' => QuinielaStatus::class,
-            'prize_type' => PrizeType::class,
-            'closing_at' => 'datetime',
-            'ticket_cost' => 'decimal:2',
-        ];
-    }
 
     public function matches(): HasMany
     {
@@ -74,5 +65,16 @@ class Quiniela extends Model
     public function scopeCompleted(Builder $query): Builder
     {
         return $query->where('status', QuinielaStatus::Completed);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'prediction_type' => PredictionType::class,
+            'status' => QuinielaStatus::class,
+            'prize_type' => PrizeType::class,
+            'closing_at' => 'datetime',
+            'ticket_cost' => 'decimal:2',
+        ];
     }
 }

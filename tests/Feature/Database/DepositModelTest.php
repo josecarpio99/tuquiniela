@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\TransactionStatus;
 use App\Models\Deposit;
 use App\Models\PaymentMethod;

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class QuinielaSeeder extends Seeder
+final class QuinielaSeeder extends Seeder
 {
     /**
      * Run the database seeds.

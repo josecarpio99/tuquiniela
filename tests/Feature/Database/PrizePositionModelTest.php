@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\PrizePosition;
 use App\Models\Quiniela;
 use Illuminate\Database\QueryException;

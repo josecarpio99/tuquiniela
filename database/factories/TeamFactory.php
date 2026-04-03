@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Team;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Team>
  */
-class TeamFactory extends Factory
+final class TeamFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +20,7 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         $name = fake()->city().' FC';
-        $short = strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $name), 0, 3));
+        $short = mb_strtoupper(mb_substr(preg_replace('/[^A-Za-z]/', '', $name), 0, 3));
 
         return [
             'name' => $name,

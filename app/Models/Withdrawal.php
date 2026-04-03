@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\TransactionStatus;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Withdrawal extends Model
+final class Withdrawal extends Model
 {
     /** @use HasFactory<WithdrawalFactory> */
     use HasFactory;
@@ -24,6 +26,16 @@ class Withdrawal extends Model
         'rejected_at',
     ];
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function paymentMethod(): BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
     protected function casts(): array
     {
         return [
@@ -33,15 +45,5 @@ class Withdrawal extends Model
             'approved_at' => 'datetime',
             'rejected_at' => 'datetime',
         ];
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function paymentMethod(): BelongsTo
-    {
-        return $this->belongsTo(PaymentMethod::class);
     }
 }

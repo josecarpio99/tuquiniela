@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\PrizePosition;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<PrizePosition>
  */
-class PrizePositionFactory extends Factory
+final class PrizePositionFactory extends Factory
 {
     public function definition(): array
     {

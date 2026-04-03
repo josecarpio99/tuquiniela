@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\MatchResult;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Prediction extends Model
+final class Prediction extends Model
 {
     /** @use HasFactory<PredictionFactory> */
     use HasFactory;
@@ -22,13 +24,6 @@ class Prediction extends Model
         'points_earned',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'predicted_result' => MatchResult::class,
-        ];
-    }
-
     public function ticket(): BelongsTo
     {
         return $this->belongsTo(Ticket::class);
@@ -37,5 +32,12 @@ class Prediction extends Model
     public function quinielaMatch(): BelongsTo
     {
         return $this->belongsTo(QuinielaMatch::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'predicted_result' => MatchResult::class,
+        ];
     }
 }

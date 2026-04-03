@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\PredictionType;
 use App\Enums\QuinielaStatus;
 use App\Models\PrizePosition;

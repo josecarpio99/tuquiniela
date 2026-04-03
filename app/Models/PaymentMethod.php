@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Database\Factories\PaymentMethodFactory;
@@ -8,20 +10,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PaymentMethod extends Model
+final class PaymentMethod extends Model
 {
     /** @use HasFactory<PaymentMethodFactory> */
     use HasFactory;
 
     protected $fillable = ['name', 'slug', 'is_active', 'platform_details', 'sort_order'];
-
-    protected function casts(): array
-    {
-        return [
-            'is_active' => 'boolean',
-            'platform_details' => 'array',
-        ];
-    }
 
     public function fields(): HasMany
     {
@@ -41,5 +35,13 @@ class PaymentMethod extends Model
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'platform_details' => 'array',
+        ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\TransactionStatus;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Deposit>
  */
-class DepositFactory extends Factory
+final class DepositFactory extends Factory
 {
     public function definition(): array
     {
