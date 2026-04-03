@@ -18,13 +18,16 @@ final class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
+                    ->label(__('Email'))
                     ->email()
                     ->required()
                     ->maxLength(255),
                 TextInput::make('password')
+                    ->label(__('Password'))
                     ->password()
                     ->revealable()
                     ->rule(Password::defaults())

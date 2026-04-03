@@ -21,9 +21,11 @@ final class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
+                    ->label(__('Email'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('wallet.balance')
