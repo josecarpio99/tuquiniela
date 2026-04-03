@@ -5,11 +5,11 @@
 
 ---
 
-## Phase 1: Database Structure
+## Phase 1: Database Structure [Completed]
 
 **Goal:** Create all models, migrations, factories, and seeders for the complete domain.
 
-### Phase 1.1: Install Dependencies
+### Phase 1.1: Install Dependencies [Completed]
 
 Install `spatie/laravel-medialibrary` for file/image uploads (deposit proof of payment, team logos, profile photos). Run pending `bavix/laravel-wallet` migrations.
 
@@ -26,7 +26,7 @@ Install `spatie/laravel-medialibrary` for file/image uploads (deposit proof of p
 
 ---
 
-### Phase 1.2: Update Users Table & Model
+### Phase 1.2: Update Users Table & Model [Completed]
 
 Add `is_admin` boolean column (default `false`) to the `users` table. Add the `HasWallet` trait from `bavix/laravel-wallet` and `InteractsWithMedia` from spatie/medialibrary to the `User` model.
 
@@ -62,7 +62,7 @@ Add `is_admin` boolean column (default `false`) to the `users` table. Add the `H
 
 ---
 
-### Phase 1.3: Teams Table & Model
+### Phase 1.3: Teams Table & Model [Completed]
 
 **Migration: `create_teams_table`**
 
@@ -96,7 +96,7 @@ Team logo: stored via `spatie/medialibrary` (`logo` collection on Team model, si
 
 ---
 
-### Phase 1.4: Quinielas Table & Model
+### Phase 1.4: Quinielas Table & Model [Completed]
 
 **Migration: `create_quinielas_table`**
 
@@ -147,7 +147,7 @@ All enums implement `HasLabel`, `HasColor`, `HasIcon` interfaces for Filament.
 
 ---
 
-### Phase 1.5: Quiniela Matches Table & Model
+### Phase 1.5: Quiniela Matches Table & Model [Completed]
 
 **Migration: `create_quiniela_matches_table`**
 
@@ -183,7 +183,7 @@ All enums implement `HasLabel`, `HasColor`, `HasIcon` interfaces for Filament.
 
 ---
 
-### Phase 1.6: Prize Positions Table & Model
+### Phase 1.6: Prize Positions Table & Model [Completed]
 
 **Migration: `create_prize_positions_table`**
 
@@ -210,7 +210,7 @@ All enums implement `HasLabel`, `HasColor`, `HasIcon` interfaces for Filament.
 
 ---
 
-### Phase 1.7: Tickets Table & Model
+### Phase 1.7: Tickets Table & Model [Completed]
 
 **Migration: `create_tickets_table`**
 
@@ -237,7 +237,7 @@ All enums implement `HasLabel`, `HasColor`, `HasIcon` interfaces for Filament.
 
 ---
 
-### Phase 1.8: Predictions Table & Model
+### Phase 1.8: Predictions Table & Model [Completed]
 
 **Migration: `create_predictions_table`**
 
@@ -274,7 +274,7 @@ All enums implement `HasLabel`, `HasColor`, `HasIcon` interfaces for Filament.
 
 ---
 
-### Phase 1.9: Payment Methods & Fields Tables & Models
+### Phase 1.9: Payment Methods & Fields Tables & Models [Completed] [Completed]
 
 **Migration: `create_payment_methods_table`**
 
@@ -326,7 +326,7 @@ All enums implement `HasLabel`, `HasColor`, `HasIcon` interfaces for Filament.
 
 ---
 
-### Phase 1.10: Deposits Table & Model
+### Phase 1.10: Deposits Table & Model [Completed]
 
 **Migration: `create_deposits_table`**
 
@@ -368,7 +368,7 @@ Proof of payment image: stored via `spatie/medialibrary` (`proof` collection on 
 
 ---
 
-### Phase 1.11: Withdrawals Table & Model
+### Phase 1.11: Withdrawals Table & Model [Completed]
 
 **Migration: `create_withdrawals_table`**
 
@@ -401,7 +401,7 @@ Proof of payment image: stored via `spatie/medialibrary` (`proof` collection on 
 
 ---
 
-### Phase 1.12: Settings Table & Model
+### Phase 1.12: Settings Table & Model [Completed]
 
 **Migration: `create_settings_table`**
 
@@ -430,7 +430,7 @@ Proof of payment image: stored via `spatie/medialibrary` (`proof` collection on 
 
 ---
 
-### Phase 1.13: User Model Relations & DatabaseSeeder
+### Phase 1.13: User Model Relations & DatabaseSeeder [Completed]
 
 Add remaining relations to the `User` model:
 - `tickets()` hasMany `Ticket`
@@ -1357,20 +1357,20 @@ Overall player statistics across all quinielas (US-12.3).
 
 | Phase | Description | Status |
 |-------|-------------|--------|
-| **Phase 1** | Database Structure | ⬜ Not Started |
-| **Phase 1.1** | Install Dependencies | ⬜ Not Started |
-| **Phase 1.2** | Update Users Table & Model | ⬜ Not Started |
-| **Phase 1.3** | Teams Table & Model | ⬜ Not Started |
-| **Phase 1.4** | Quinielas Table & Model | ⬜ Not Started |
-| **Phase 1.5** | Quiniela Matches Table & Model | ⬜ Not Started |
-| **Phase 1.6** | Prize Positions Table & Model | ⬜ Not Started |
-| **Phase 1.7** | Tickets Table & Model | ⬜ Not Started |
-| **Phase 1.8** | Predictions Table & Model | ⬜ Not Started |
-| **Phase 1.9** | Payment Methods & Fields Tables | ⬜ Not Started |
-| **Phase 1.10** | Deposits Table & Model | ⬜ Not Started |
-| **Phase 1.11** | Withdrawals Table & Model | ⬜ Not Started |
-| **Phase 1.12** | Settings Table & Model | ⬜ Not Started |
-| **Phase 1.13** | User Model Relations & Seeder | ⬜ Not Started |
+| **Phase 1** | Database Structure | ✅ Completed |
+| **Phase 1.1** | Install Dependencies | ✅ Completed |
+| **Phase 1.2** | Update Users Table & Model | ✅ Completed |
+| **Phase 1.3** | Teams Table & Model | ✅ Completed |
+| **Phase 1.4** | Quinielas Table & Model | ✅ Completed |
+| **Phase 1.5** | Quiniela Matches Table & Model | ✅ Completed |
+| **Phase 1.6** | Prize Positions Table & Model | ✅ Completed |
+| **Phase 1.7** | Tickets Table & Model | ✅ Completed |
+| **Phase 1.8** | Predictions Table & Model | ✅ Completed |
+| **Phase 1.9** | Payment Methods & Fields Tables | ✅ Completed |
+| **Phase 1.10** | Deposits Table & Model | ✅ Completed |
+| **Phase 1.11** | Withdrawals Table & Model | ✅ Completed |
+| **Phase 1.12** | Settings Table & Model | ✅ Completed |
+| **Phase 1.13** | User Model Relations & Seeder | ✅ Completed |
 | **Phase 2** | Admin Access & User Management | ⬜ Not Started |
 | **Phase 2.1** | Admin Panel Authorization | ⬜ Not Started |
 | **Phase 2.2** | User Management Filament Resource | ⬜ Not Started |
