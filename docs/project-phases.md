@@ -452,13 +452,13 @@ Update `DatabaseSeeder` to call all seeders in correct order:
 
 ---
 
-## Phase 2: Admin Access & User Management
+## Phase 2: Admin Access & User Management [Completed]
 
 **Goal:** Restrict Filament panel to admin users, build user and team management resources.
 
 **User Stories:** US-1.4 (partial — profile photo), US-6.3, US-11.1
 
-### Phase 2.1: Admin Panel Authorization
+### Phase 2.1: Admin Panel Authorization [Completed]
 
 Restrict the Filament admin panel so only users with `is_admin = true` can access it.
 
@@ -475,7 +475,7 @@ Restrict the Filament admin panel so only users with `is_admin = true` can acces
 
 ---
 
-### Phase 2.2: User Management Filament Resource
+### Phase 2.2: User Management Filament Resource [Completed]
 
 Create a Filament resource for managing players (US-11.1).
 
@@ -497,7 +497,7 @@ Create a Filament resource for managing players (US-11.1).
 
 ---
 
-### Phase 2.3: Admin Balance Management
+### Phase 2.3: Admin Balance Management [Completed]
 
 Allow admin to view/adjust any player's balance and transaction history (US-6.3).
 
@@ -514,7 +514,7 @@ Allow admin to view/adjust any player's balance and transaction history (US-6.3)
 
 ---
 
-### Phase 2.4: Team Management Filament Resource
+### Phase 2.4: Team Management Filament Resource [Completed]
 
 Create a Filament resource for managing football teams.
 
@@ -1371,11 +1371,11 @@ Overall player statistics across all quinielas (US-12.3).
 | **Phase 1.11** | Withdrawals Table & Model | ✅ Completed |
 | **Phase 1.12** | Settings Table & Model | ✅ Completed |
 | **Phase 1.13** | User Model Relations & Seeder | ✅ Completed |
-| **Phase 2** | Admin Access & User Management | ⬜ Not Started |
-| **Phase 2.1** | Admin Panel Authorization | ⬜ Not Started |
-| **Phase 2.2** | User Management Filament Resource | ⬜ Not Started |
-| **Phase 2.3** | Admin Balance Management | ⬜ Not Started |
-| **Phase 2.4** | Team Management Filament Resource | ⬜ Not Started |
+| **Phase 2** | Admin Access & User Management | ✅ Completed |
+| **Phase 2.1** | Admin Panel Authorization | ✅ Completed |
+| **Phase 2.2** | User Management Filament Resource | ✅ Completed |
+| **Phase 2.3** | Admin Balance Management | ✅ Completed |
+| **Phase 2.4** | Team Management Filament Resource | ✅ Completed |
 | **Phase 3** | Wallet & Balance Integration | ⬜ Not Started |
 | **Phase 3.1** | Wallet Configuration | ⬜ Not Started |
 | **Phase 3.2** | Player Balance Display | ⬜ Not Started |

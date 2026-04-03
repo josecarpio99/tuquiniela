@@ -6,13 +6,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Models\Transaction;
+use Bavix\Wallet\Models\Wallet as WalletModel;
 use Bavix\Wallet\Traits\HasWallet;
 use Bavix\Wallet\Traits\HasWalletFloat;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -22,14 +27,24 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 #[Fillable(['name', 'email', 'password', 'is_admin'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-final class User extends Authenticatable implements HasMedia, Wallet
+final class User extends Authenticatable implements FilamentUser, HasMedia, Wallet
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasWallet, HasWalletFloat, InteractsWithMedia, Notifiable, TwoFactorAuthenticatable;
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->is_admin === true;
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')->singleFile();
+    }
+
+    public function walletHistory(): HasManyThrough
+    {
+        return $this->hasManyThrough(Transaction::class, WalletModel::class, 'holder_id', 'wallet_id');
     }
 
     public function tickets(): HasMany
