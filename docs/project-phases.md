@@ -587,13 +587,13 @@ Create a page where players can view their transaction history (US-6.2). This is
 
 ---
 
-## Phase 4: Design & Style Guidelines
+## Phase 4: Design & Style Guidelines [Completed]
 
 **Goal:** Define and document the visual identity, component patterns, and layout conventions for every player-facing view, **before** building any application UI.
 
 > **CRITICAL.** This phase must be completed before any work on Phases 5–8 (player-facing views). All subsequent views must conform to the guidelines established here.
 
-### Phase 4.1: Visual Identity & Theme Configuration
+### Phase 4.1: Visual Identity & Theme Configuration [Completed]
 
 Define the application-wide look and feel.
 
@@ -616,7 +616,7 @@ Define the application-wide look and feel.
 
 ---
 
-### Phase 4.2: Layout & Navigation Patterns
+### Phase 4.2: Layout & Navigation Patterns [Completed]
 
 Define the page layout structure and navigation for the player area.
 
@@ -647,7 +647,7 @@ Define the page layout structure and navigation for the player area.
 
 ---
 
-### Phase 4.3: Component & Page Design Conventions
+### Phase 4.3: Component & Page Design Conventions [Completed]
 
 Document the design patterns to be followed for all player-facing views.
 
@@ -1380,10 +1380,10 @@ Overall player statistics across all quinielas (US-12.3).
 | **Phase 3.1** | Wallet Configuration | ✅ Completed |
 | **Phase 3.2** | Player Balance Display | ✅ Completed |
 | **Phase 3.3** | Player Balance History Page | ✅ Completed |
-| **Phase 4** | Design & Style Guidelines | ⬜ Not Started |
-| **Phase 4.1** | Visual Identity & Theme | ⬜ Not Started |
-| **Phase 4.2** | Layout & Navigation Patterns | ⬜ Not Started |
-| **Phase 4.3** | Component & Page Design Conventions | ⬜ Not Started |
+| **Phase 4** | Design & Style Guidelines | ✅ Completed |
+| **Phase 4.1** | Visual Identity & Theme | ✅ Completed |
+| **Phase 4.2** | Layout & Navigation Patterns | ✅ Completed |
+| **Phase 4.3** | Component & Page Design Conventions | ✅ Completed |
 | **Phase 5** | Quiniela Management (Admin) | ⬜ Not Started |
 | **Phase 5.1** | Quiniela Filament Resource | ⬜ Not Started |
 | **Phase 5.2** | Match Management | ⬜ Not Started |

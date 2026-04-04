@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga MX — Jornada 15 — TuQuiniela</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Instrument Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        base: '#0C0D0F',
+                        surface: { DEFAULT: '#151719', hover: '#1E2023', light: '#1A1C1F' },
+                        border: '#2A2D31',
+                        accent: { DEFAULT: '#10B981', hover: '#059669', light: '#10B98120' },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+        @supports (padding-bottom: env(safe-area-inset-bottom)) { .bottom-tab-bar { padding-bottom: calc(0.5rem + env(safe-area-inset-bottom)); } }
+
+        /* Custom radio button styles for prediction selection */
+        .pred-radio:checked + label { background-color: rgba(16, 185, 129, 0.15); border-color: #10B981; color: #10B981; }
+        .pred-radio:checked + label .radio-dot { background-color: #10B981; }
+
+        /* Score input styling */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type="number"] { -moz-appearance: textfield; }
+    </style>
+</head>
+<body class="bg-base text-white font-sans antialiased">
+
+    <!-- TOP NAVBAR -->
+    <header class="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur-md">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-6">
+                    <a href="welcome.html" class="flex items-center gap-2.5 shrink-0">
+                        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-accent">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight hidden sm:inline">Tu<span class="text-accent">Quiniela</span></span>
+                    </a>
+                    <nav class="hidden lg:flex items-center gap-1">
+                        <a href="dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-surface-hover transition-colors">Inicio</a>
+                        <a href="quinielas.html" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-surface-hover">Quinielas</a>
+                        <a href="tickets.html" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-surface-hover transition-colors">Mis Tickets</a>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="balance.html" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/20 hover:bg-accent/20 transition-colors">
+                        <svg class="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                        <span class="text-sm font-bold text-accent">$50.00</span>
+                    </a>
+                    <div class="relative">
+                        <button class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-surface-hover transition-colors">
+                            <div class="h-8 w-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-semibold text-sm">JD</div>
+                            <span class="hidden sm:inline text-sm font-medium text-gray-300">Juan D.</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="pb-20 lg:pb-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
+
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+                <a href="quinielas.html" class="hover:text-gray-300 transition-colors">Quinielas</a>
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                <span class="text-gray-300">Liga MX — Jornada 15</span>
+            </nav>
+
+            <div class="grid gap-6 lg:grid-cols-3">
+
+                <!-- Left: Quiniela Info + Predictions (2/3) -->
+                <div class="lg:col-span-2 space-y-6">
+
+                    <!-- Quiniela Header Card -->
+                    <div class="rounded-xl border border-border bg-surface p-5 sm:p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-accent pulse-dot"></span>
+                                        Abierta
+                                    </span>
+                                    <span class="inline-flex px-2 py-0.5 rounded text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">Por resultado</span>
+                                </div>
+                                <h1 class="text-2xl sm:text-3xl font-bold">Liga MX — Jornada 15</h1>
+                                <p class="text-gray-400 mt-1">Predice quién gana cada partido: Local, Empate o Visitante</p>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-sm text-gray-400 bg-base px-3 py-2 rounded-lg shrink-0">
+                                <svg class="h-4 w-4 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span>Cierra en <strong class="text-yellow-400">2d 5h 30m</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Quick stats row -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-5 border-t border-border">
+                            <div class="text-center p-3 rounded-lg bg-base">
+                                <div class="text-xs text-gray-500 mb-1">Costo del ticket</div>
+                                <div class="text-lg font-bold">$1.00</div>
+                            </div>
+                            <div class="text-center p-3 rounded-lg bg-base">
+                                <div class="text-xs text-gray-500 mb-1">Premio total</div>
+                                <div class="text-lg font-bold text-accent">$100.00</div>
+                            </div>
+                            <div class="text-center p-3 rounded-lg bg-base">
+                                <div class="text-xs text-gray-500 mb-1">Partidos</div>
+                                <div class="text-lg font-bold">9</div>
+                            </div>
+                            <div class="text-center p-3 rounded-lg bg-base">
+                                <div class="text-xs text-gray-500 mb-1">Participantes</div>
+                                <div class="text-lg font-bold">45</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ticket status banner -->
+                    <div class="flex items-center justify-between px-4 py-3 rounded-xl bg-accent/10 border border-accent/20">
+                        <div class="flex items-center gap-2">
+                            <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                            <span class="text-sm font-medium text-accent">Ticket #1 — 7 de 9 pronósticos completados</span>
+                        </div>
+                        <span class="text-xs text-gray-400">Puedes editar hasta que cierre</span>
+                    </div>
+
+                    <!-- PREDICTIONS FORM: By Result Mode -->
+                    <div class="space-y-3">
+                        <h2 class="text-lg font-semibold">Tus Pronósticos</h2>
+
+                        <!-- Match 1 (filled) -->
+                        <div class="rounded-xl border border-border bg-surface p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-gray-500 font-medium">Partido 1 · Sáb 5 Abr, 18:00</span>
+                                <span class="text-xs text-accent font-medium">✓ Completado</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <input type="radio" name="match1" id="m1-local" class="pred-radio sr-only" checked>
+                                    <label for="m1-local" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-accent bg-accent/10 cursor-pointer text-accent transition-colors text-center">
+                                        <span class="text-sm font-semibold">América</span>
+                                        <span class="text-xs opacity-75">Local</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match1" id="m1-draw" class="pred-radio sr-only">
+                                    <label for="m1-draw" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Empate</span>
+                                        <span class="text-xs opacity-75">X</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match1" id="m1-away" class="pred-radio sr-only">
+                                    <label for="m1-away" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Guadalajara</span>
+                                        <span class="text-xs opacity-75">Visitante</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Match 2 (filled) -->
+                        <div class="rounded-xl border border-border bg-surface p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-gray-500 font-medium">Partido 2 · Sáb 5 Abr, 20:00</span>
+                                <span class="text-xs text-accent font-medium">✓ Completado</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <input type="radio" name="match2" id="m2-local" class="pred-radio sr-only">
+                                    <label for="m2-local" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Monterrey</span>
+                                        <span class="text-xs opacity-75">Local</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match2" id="m2-draw" class="pred-radio sr-only" checked>
+                                    <label for="m2-draw" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-accent bg-accent/10 cursor-pointer text-accent transition-colors text-center">
+                                        <span class="text-sm font-semibold">Empate</span>
+                                        <span class="text-xs opacity-75">X</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match2" id="m2-away" class="pred-radio sr-only">
+                                    <label for="m2-away" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Cruz Azul</span>
+                                        <span class="text-xs opacity-75">Visitante</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Match 3 (filled) -->
+                        <div class="rounded-xl border border-border bg-surface p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-gray-500 font-medium">Partido 3 · Dom 6 Abr, 12:00</span>
+                                <span class="text-xs text-accent font-medium">✓ Completado</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <input type="radio" name="match3" id="m3-local" class="pred-radio sr-only">
+                                    <label for="m3-local" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Pumas</span>
+                                        <span class="text-xs opacity-75">Local</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match3" id="m3-draw" class="pred-radio sr-only">
+                                    <label for="m3-draw" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Empate</span>
+                                        <span class="text-xs opacity-75">X</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match3" id="m3-away" class="pred-radio sr-only" checked>
+                                    <label for="m3-away" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-accent bg-accent/10 cursor-pointer text-accent transition-colors text-center">
+                                        <span class="text-sm font-semibold">Tigres</span>
+                                        <span class="text-xs opacity-75">Visitante</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Match 4 (empty - needs prediction) -->
+                        <div class="rounded-xl border border-yellow-500/30 bg-surface p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-gray-500 font-medium">Partido 4 · Dom 6 Abr, 14:00</span>
+                                <span class="text-xs text-yellow-400 font-medium">⚠ Pendiente</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <input type="radio" name="match4" id="m4-local" class="pred-radio sr-only">
+                                    <label for="m4-local" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">León</span>
+                                        <span class="text-xs opacity-75">Local</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match4" id="m4-draw" class="pred-radio sr-only">
+                                    <label for="m4-draw" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Empate</span>
+                                        <span class="text-xs opacity-75">X</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match4" id="m4-away" class="pred-radio sr-only">
+                                    <label for="m4-away" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Santos</span>
+                                        <span class="text-xs opacity-75">Visitante</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Match 5 (empty) -->
+                        <div class="rounded-xl border border-yellow-500/30 bg-surface p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs text-gray-500 font-medium">Partido 5 · Dom 6 Abr, 16:00</span>
+                                <span class="text-xs text-yellow-400 font-medium">⚠ Pendiente</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <input type="radio" name="match5" id="m5-local" class="pred-radio sr-only">
+                                    <label for="m5-local" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Toluca</span>
+                                        <span class="text-xs opacity-75">Local</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match5" id="m5-draw" class="pred-radio sr-only">
+                                    <label for="m5-draw" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Empate</span>
+                                        <span class="text-xs opacity-75">X</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="match5" id="m5-away" class="pred-radio sr-only">
+                                    <label for="m5-away" class="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border bg-base hover:border-gray-500 cursor-pointer text-gray-400 hover:text-white transition-colors text-center">
+                                        <span class="text-sm font-semibold">Pachuca</span>
+                                        <span class="text-xs opacity-75">Visitante</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Save button (sticky on mobile) -->
+                        <div class="sticky bottom-20 lg:bottom-4 z-40 pt-4">
+                            <button class="w-full px-6 py-3.5 rounded-xl bg-accent hover:bg-accent-hover text-white font-semibold text-base transition-colors shadow-lg shadow-accent/20">
+                                Guardar pronósticos (7/9)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="space-y-6">
+
+                    <!-- Prize Structure -->
+                    <div class="rounded-xl border border-border bg-surface p-5">
+                        <h3 class="font-semibold mb-4 flex items-center gap-2">
+                            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 6 9 6 9Z"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 18 9 18 9Z"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            Premios
+                        </h3>
+                        <div class="text-center p-4 rounded-lg bg-base mb-4">
+                            <div class="text-xs text-gray-500 mb-1">Pozo total</div>
+                            <div class="text-2xl font-bold text-accent">$100.00</div>
+                            <div class="text-xs text-gray-500 mt-1">Monto fijo</div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-base">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-shrink-0 h-6 w-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs font-bold">1</span>
+                                    <span class="text-sm text-gray-300">1er lugar</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-bold text-white">$80.00</span>
+                                    <span class="text-xs text-gray-500 ml-1">(80%)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-base">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex-shrink-0 h-6 w-6 rounded-full bg-gray-500/20 flex items-center justify-center text-gray-300 text-xs font-bold">2</span>
+                                    <span class="text-sm text-gray-300">2do lugar</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-bold text-white">$20.00</span>
+                                    <span class="text-xs text-gray-500 ml-1">(20%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scoring Rules -->
+                    <div class="rounded-xl border border-border bg-surface p-5">
+                        <h3 class="font-semibold mb-4 flex items-center gap-2">
+                            <svg class="h-5 w-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            Puntuación
+                        </h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">✅ Acierto</span>
+                                <span class="text-accent font-semibold">+1 punto</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">❌ Fallo</span>
+                                <span class="text-gray-500 font-semibold">0 puntos</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">El jugador con más puntos gana. En caso de empate, el premio se divide equitativamente.</p>
+                    </div>
+
+                    <!-- Buy another ticket -->
+                    <div class="rounded-xl border border-border bg-surface p-5">
+                        <h3 class="font-semibold mb-2">¿Quieres otro ticket?</h3>
+                        <p class="text-sm text-gray-400 mb-4">Puedes comprar múltiples tickets con diferentes pronósticos</p>
+                        <button class="w-full px-4 py-2.5 rounded-lg border border-accent text-accent hover:bg-accent/10 text-sm font-semibold transition-colors">
+                            Comprar otro ticket — $1.00
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- SCORE MODE EXAMPLE (below, separated)        -->
+            <!-- ============================================ -->
+            <div class="mt-16 pt-8 border-t border-border">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-medium mb-4">
+                    Vista alternativa — Modo "Por marcador"
+                </div>
+                <h2 class="text-xl font-bold mb-4">Champions League — Cuartos <span class="text-purple-400">(Por marcador)</span></h2>
+
+                <div class="max-w-2xl space-y-3">
+                    <!-- Score Match 1 (filled) -->
+                    <div class="rounded-xl border border-border bg-surface p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs text-gray-500 font-medium">Partido 1 · Mar 8 Abr, 21:00</span>
+                            <span class="text-xs text-accent font-medium">✓ Completado</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 text-right">
+                                <span class="text-sm font-semibold text-gray-200">Real Madrid</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="number" min="0" max="99" value="2" class="w-12 h-12 text-center text-lg font-bold rounded-lg bg-base border border-accent text-accent focus:outline-none focus:ring-2 focus:ring-accent">
+                                <span class="text-gray-500 font-bold">—</span>
+                                <input type="number" min="0" max="99" value="1" class="w-12 h-12 text-center text-lg font-bold rounded-lg bg-base border border-accent text-accent focus:outline-none focus:ring-2 focus:ring-accent">
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-sm font-semibold text-gray-200">Bayern Munich</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Score Match 2 (empty) -->
+                    <div class="rounded-xl border border-yellow-500/30 bg-surface p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs text-gray-500 font-medium">Partido 2 · Mar 8 Abr, 21:00</span>
+                            <span class="text-xs text-yellow-400 font-medium">⚠ Pendiente</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 text-right">
+                                <span class="text-sm font-semibold text-gray-200">Barcelona</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="number" min="0" max="99" placeholder="—" class="w-12 h-12 text-center text-lg font-bold rounded-lg bg-base border border-border text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                <span class="text-gray-500 font-bold">—</span>
+                                <input type="number" min="0" max="99" placeholder="—" class="w-12 h-12 text-center text-lg font-bold rounded-lg bg-base border border-border text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-sm font-semibold text-gray-200">PSG</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Score Match 3 (empty) -->
+                    <div class="rounded-xl border border-yellow-500/30 bg-surface p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs text-gray-500 font-medium">Partido 3 · Mié 9 Abr, 21:00</span>
+                            <span class="text-xs text-yellow-400 font-medium">⚠ Pendiente</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex-1 text-right">
+                                <span class="text-sm font-semibold text-gray-200">Man City</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="number" min="0" max="99" placeholder="—" class="w-12 h-12 text-center text-lg font-bold rounded-lg bg-base border border-border text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                <span class="text-gray-500 font-bold">—</span>
+                                <input type="number" min="0" max="99" placeholder="—" class="w-12 h-12 text-center text-lg font-bold rounded-lg bg-base border border-border text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-sm font-semibold text-gray-200">Arsenal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MOBILE BOTTOM TAB BAR -->
+    <nav class="bottom-tab-bar fixed bottom-0 inset-x-0 z-50 lg:hidden bg-surface/95 backdrop-blur-md border-t border-border">
+        <div class="flex items-center justify-around h-16 px-2">
+            <a href="dashboard.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="text-[10px] font-medium">Inicio</span>
+            </a>
+            <a href="quinielas.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-accent">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 6 9 6 9Z"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 18 9 18 9Z"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                <span class="text-[10px] font-medium">Quinielas</span>
+            </a>
+            <a href="tickets.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                <span class="text-[10px] font-medium">Tickets</span>
+            </a>
+            <a href="balance.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                <span class="text-[10px] font-medium">Saldo</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                <span class="text-[10px] font-medium">Perfil</span>
+            </a>
+        </div>
+    </nav>
+
+</body>
+</html>

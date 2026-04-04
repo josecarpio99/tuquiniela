@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuQuiniela — Pronósticos de Fútbol</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Instrument Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        base: '#0C0D0F',
+                        surface: {
+                            DEFAULT: '#151719',
+                            hover: '#1E2023',
+                            light: '#1A1C1F',
+                        },
+                        border: '#2A2D31',
+                        accent: {
+                            DEFAULT: '#10B981',
+                            hover: '#059669',
+                            light: '#10B98120',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+
+        /* Hide scrollbar on bottom tab area */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Subtle glow effect on hero CTA */
+        .glow-accent {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 0 0 60px rgba(16, 185, 129, 0.1);
+        }
+
+        /* Gradient text */
+        .text-gradient {
+            background: linear-gradient(135deg, #10B981 0%, #34D399 50%, #6EE7B7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Card hover lift */
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Countdown badge pulse */
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+        /* Bottom tab bar safe area */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .bottom-tab-bar {
+                padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</head>
+<body class="bg-base text-white font-sans antialiased">
+
+    <!-- ============================================ -->
+    <!-- DESKTOP TOP NAVBAR (lg+)                     -->
+    <!-- ============================================ -->
+    <header class="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur-md">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2.5 shrink-0">
+                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-accent">
+                        <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            <path d="M2 12h20"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">
+                        Tu<span class="text-accent">Quiniela</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden lg:flex items-center gap-1 ml-10">
+                    <a href="#" class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-surface-hover">Inicio</a>
+                    <a href="#quinielas" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-surface-hover transition-colors">Quinielas</a>
+                    <a href="#como-funciona" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-surface-hover transition-colors">Cómo funciona</a>
+                </nav>
+
+                <!-- Desktop Right Section -->
+                <div class="flex items-center gap-3">
+                    <!-- Auth buttons (visible when NOT logged in) -->
+                    <div class="hidden sm:flex items-center gap-2">
+                        <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white rounded-lg border border-border hover:border-gray-500 transition-colors">
+                            Iniciar sesión
+                        </a>
+                        <a href="#" class="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-lg transition-colors">
+                            Regístrate
+                        </a>
+                    </div>
+
+                    <!-- Mobile: only show login icon on small screens -->
+                    <a href="#" class="sm:hidden flex items-center justify-center h-10 w-10 rounded-lg border border-border hover:border-gray-500 text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                            <polyline points="10 17 15 12 10 7"/>
+                            <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main class="pb-20 lg:pb-0">
+
+        <!-- HERO SECTION -->
+        <section class="relative overflow-hidden">
+            <!-- Background gradient -->
+            <div class="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent"></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/5 rounded-full blur-3xl"></div>
+
+            <div class="relative mx-auto max-w-7xl px-4 sm:px-6 pt-16 pb-20 sm:pt-24 sm:pb-28">
+                <div class="mx-auto max-w-3xl text-center">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-accent-light border border-accent/30 text-accent text-sm font-medium">
+                        <span class="flex h-2 w-2 rounded-full bg-accent pulse-dot"></span>
+                        Quinielas abiertas ahora
+                    </div>
+
+                    <!-- Headline -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
+                        Predice los resultados,<br>
+                        <span class="text-gradient">gana premios reales</span>
+                    </h1>
+
+                    <!-- Subheadline -->
+                    <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                        La plataforma de quinielas de fútbol donde tu conocimiento del deporte se convierte en ganancias. Pronostica resultados, acumula puntos y lleva el premio.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-white bg-accent hover:bg-accent-hover rounded-xl transition-colors glow-accent">
+                            Regístrate gratis
+                        </a>
+                        <a href="#como-funciona" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-gray-300 hover:text-white border border-border hover:border-gray-500 rounded-xl transition-colors">
+                            ¿Cómo funciona?
+                        </a>
+                    </div>
+
+                    <!-- Quick stats -->
+                    <div class="flex items-center justify-center gap-8 sm:gap-12 mt-12 pt-8 border-t border-border/50">
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-bold text-white">1,200+</div>
+                            <div class="text-sm text-gray-500 mt-1">Jugadores activos</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-bold text-accent">$15,000</div>
+                            <div class="text-sm text-gray-500 mt-1">Premios repartidos</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-bold text-white">50+</div>
+                            <div class="text-sm text-gray-500 mt-1">Quinielas completadas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED QUINIELAS SECTION -->
+        <section id="quinielas" class="py-16 sm:py-20">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6">
+                <!-- Section header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold">Quinielas Disponibles</h2>
+                        <p class="text-gray-400 mt-2">Elige una quiniela y empieza a ganar</p>
+                    </div>
+                    <a href="#" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors">
+                        Ver todas
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </a>
+                </div>
+
+                <!-- Quiniela Cards Grid -->
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+                    <!-- Card 1: Open - By Result -->
+                    <div class="card-hover rounded-xl border border-border bg-surface p-5 flex flex-col">
+                        <!-- Card header -->
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-accent-light text-accent border border-accent/20">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-accent pulse-dot"></span>
+                                        Abierta
+                                    </span>
+                                    <span class="inline-flex px-2 py-0.5 rounded text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                                        Por resultado
+                                    </span>
+                                </div>
+                                <h3 class="text-lg font-semibold mt-2">Liga MX — Jornada 15</h3>
+                            </div>
+                        </div>
+
+                        <!-- Match preview -->
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">América</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Guadalajara</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Monterrey</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Cruz Azul</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Pumas</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Tigres</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <!-- Card stats -->
+                            <div class="flex items-center justify-between text-sm mb-4 pb-4 border-b border-border">
+                                <div class="flex items-center gap-4">
+                                    <div>
+                                        <span class="text-gray-500">Costo</span>
+                                        <div class="font-semibold text-white">$1.00</div>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Premio</span>
+                                        <div class="font-semibold text-accent">$100.00</div>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Partidos</span>
+                                        <div class="font-semibold text-white">9</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card footer -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-1.5 text-sm text-gray-400">
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    <span>Cierra en <strong class="text-yellow-400">2d 5h</strong></span>
+                                </div>
+                                <div class="flex items-center gap-1.5 text-sm text-gray-400">
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    <span>45 tickets</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Open - By Score -->
+                    <div class="card-hover rounded-xl border border-border bg-surface p-5 flex flex-col">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-accent-light text-accent border border-accent/20">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-accent pulse-dot"></span>
+                                        Abierta
+                                    </span>
+                                    <span class="inline-flex px-2 py-0.5 rounded text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                        Por marcador
+                                    </span>
+                                </div>
+                                <h3 class="text-lg font-semibold mt-2">Champions League — Cuartos</h3>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Real Madrid</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Bayern Munich</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Barcelona</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">PSG</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Man City</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Arsenal</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="flex items-center justify-between text-sm mb-4 pb-4 border-b border-border">
+                                <div class="flex items-center gap-4">
+                                    <div>
+                                        <span class="text-gray-500">Costo</span>
+                                        <div class="font-semibold text-white">$2.00</div>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Premio</span>
+                                        <div class="font-semibold text-accent">$250.00</div>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Partidos</span>
+                                        <div class="font-semibold text-white">8</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-1.5 text-sm text-gray-400">
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    <span>Cierra en <strong class="text-yellow-400">5d 12h</strong></span>
+                                </div>
+                                <div class="flex items-center gap-1.5 text-sm text-gray-400">
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    <span>78 tickets</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Closing soon -->
+                    <div class="card-hover rounded-xl border border-yellow-500/30 bg-surface p-5 flex flex-col">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-yellow-400 pulse-dot"></span>
+                                        ¡Cierra pronto!
+                                    </span>
+                                    <span class="inline-flex px-2 py-0.5 rounded text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                                        Por resultado
+                                    </span>
+                                </div>
+                                <h3 class="text-lg font-semibold mt-2">Premier League — J32</h3>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Liverpool</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Chelsea</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Tottenham</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Newcastle</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">Aston Villa</span>
+                                <span class="text-gray-500">vs</span>
+                                <span class="text-gray-300">Man United</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="flex items-center justify-between text-sm mb-4 pb-4 border-b border-border">
+                                <div class="flex items-center gap-4">
+                                    <div>
+                                        <span class="text-gray-500">Costo</span>
+                                        <div class="font-semibold text-white">$1.50</div>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Premio</span>
+                                        <div class="font-semibold text-accent">60% del pozo</div>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500">Partidos</span>
+                                        <div class="font-semibold text-white">10</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-1.5 text-sm text-gray-400">
+                                    <svg class="h-4 w-4 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    <span>Cierra en <strong class="text-red-400">3h 20m</strong></span>
+                                </div>
+                                <div class="flex items-center gap-1.5 text-sm text-gray-400">
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    <span>120 tickets</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile "Ver todas" link -->
+                <div class="sm:hidden mt-6 text-center">
+                    <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors">
+                        Ver todas las quinielas
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECENT WINNERS SECTION -->
+        <section class="py-16 sm:py-20 border-t border-border/50">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold">Últimos Ganadores</h2>
+                    <p class="text-gray-400 mt-2">Ellos ya están ganando, ¡es tu turno!</p>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Winner 1 -->
+                    <div class="flex items-center gap-3 p-4 rounded-xl bg-surface border border-border">
+                        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm">
+                            1°
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="font-medium truncate">Carlos M.</div>
+                            <div class="text-sm text-gray-500 truncate">Liga MX — J14</div>
+                        </div>
+                        <div class="text-accent font-bold text-sm">+$80.00</div>
+                    </div>
+
+                    <!-- Winner 2 -->
+                    <div class="flex items-center gap-3 p-4 rounded-xl bg-surface border border-border">
+                        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-500/20 flex items-center justify-center text-gray-300 font-bold text-sm">
+                            2°
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="font-medium truncate">María L.</div>
+                            <div class="text-sm text-gray-500 truncate">Liga MX — J14</div>
+                        </div>
+                        <div class="text-accent font-bold text-sm">+$20.00</div>
+                    </div>
+
+                    <!-- Winner 3 -->
+                    <div class="flex items-center gap-3 p-4 rounded-xl bg-surface border border-border">
+                        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm">
+                            1°
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="font-medium truncate">Pedro R.</div>
+                            <div class="text-sm text-gray-500 truncate">Champions — Octavos</div>
+                        </div>
+                        <div class="text-accent font-bold text-sm">+$200.00</div>
+                    </div>
+
+                    <!-- Winner 4 -->
+                    <div class="flex items-center gap-3 p-4 rounded-xl bg-surface border border-border">
+                        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-500/20 flex items-center justify-center text-gray-300 font-bold text-sm">
+                            2°
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="font-medium truncate">Ana G.</div>
+                            <div class="text-sm text-gray-500 truncate">Champions — Octavos</div>
+                        </div>
+                        <div class="text-accent font-bold text-sm">+$50.00</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS SECTION -->
+        <section id="como-funciona" class="py-16 sm:py-20 border-t border-border/50">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-2xl sm:text-3xl font-bold">¿Cómo funciona?</h2>
+                    <p class="text-gray-400 mt-2">En 3 simples pasos estarás compitiendo</p>
+                </div>
+
+                <div class="grid gap-8 sm:gap-6 sm:grid-cols-3 max-w-4xl mx-auto">
+                    <!-- Step 1 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto mb-5 rounded-2xl bg-accent/10 border border-accent/20">
+                            <svg class="h-8 w-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <line x1="19" y1="8" x2="19" y2="14"/>
+                                <line x1="22" y1="11" x2="16" y2="11"/>
+                            </svg>
+                        </div>
+                        <div class="inline-flex items-center justify-center h-6 w-6 mb-3 rounded-full bg-accent text-white text-xs font-bold">1</div>
+                        <h3 class="text-lg font-semibold mb-2">Regístrate</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Crea tu cuenta gratis en segundos. Solo necesitas un correo electrónico.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto mb-5 rounded-2xl bg-accent/10 border border-accent/20">
+                            <svg class="h-8 w-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                                <line x1="2" y1="10" x2="22" y2="10"/>
+                            </svg>
+                        </div>
+                        <div class="inline-flex items-center justify-center h-6 w-6 mb-3 rounded-full bg-accent text-white text-xs font-bold">2</div>
+                        <h3 class="text-lg font-semibold mb-2">Deposita</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Agrega fondos a tu balance con Binance Pay u otros métodos de pago.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 mx-auto mb-5 rounded-2xl bg-accent/10 border border-accent/20">
+                            <svg class="h-8 w-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 6 9 6 9Z"/>
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 18 9 18 9Z"/>
+                                <path d="M4 22h16"/>
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/>
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/>
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                            </svg>
+                        </div>
+                        <div class="inline-flex items-center justify-center h-6 w-6 mb-3 rounded-full bg-accent text-white text-xs font-bold">3</div>
+                        <h3 class="text-lg font-semibold mb-2">¡Juega y Gana!</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Compra tu ticket, haz tus pronósticos y gana premios si aciertas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCORING EXPLANATION SECTION -->
+        <section class="py-16 sm:py-20 border-t border-border/50">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold">Tipos de Quiniela</h2>
+                    <p class="text-gray-400 mt-2">Dos formas de demostrar tu conocimiento</p>
+                </div>
+
+                <div class="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto">
+                    <!-- Type 1: By Result -->
+                    <div class="rounded-xl border border-border bg-surface p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-blue-500/10 text-blue-400">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                            </div>
+                            <h3 class="text-lg font-semibold">Por Resultado</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                            Predice quién gana cada partido: Local, Visitante o Empate. Simple y directo.
+                        </p>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">✅ Acierto</span>
+                                <span class="text-accent font-semibold">+1 punto</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">❌ Fallo</span>
+                                <span class="text-gray-500 font-semibold">0 puntos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Type 2: By Score -->
+                    <div class="rounded-xl border border-border bg-surface p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="flex items-center justify-center h-10 w-10 rounded-lg bg-purple-500/10 text-purple-400">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+                            </div>
+                            <h3 class="text-lg font-semibold">Por Marcador</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                            Predice el marcador exacto de cada partido. Mayor riesgo, mayor recompensa.
+                        </p>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">🎯 Marcador exacto</span>
+                                <span class="text-accent font-semibold">+4 puntos</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">✅ Resultado correcto</span>
+                                <span class="text-blue-400 font-semibold">+2 puntos</span>
+                            </div>
+                            <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-base text-sm">
+                                <span class="text-gray-300">❌ Fallo</span>
+                                <span class="text-red-400 font-semibold">-1 punto</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="py-16 sm:py-20 border-t border-border/50">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6">
+                <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent/20 via-surface to-surface border border-accent/20 p-8 sm:p-12 text-center">
+                    <!-- Background glow -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 rounded-full blur-3xl"></div>
+
+                    <div class="relative">
+                        <h2 class="text-2xl sm:text-3xl font-bold mb-4">¿Listo para demostrar lo que sabes?</h2>
+                        <p class="text-gray-400 max-w-xl mx-auto mb-8 leading-relaxed">
+                            Únete a miles de jugadores que ya están ganando con sus pronósticos. Regístrate gratis y empieza a jugar hoy.
+                        </p>
+                        <a href="#" class="inline-flex px-8 py-3.5 text-base font-semibold text-white bg-accent hover:bg-accent-hover rounded-xl transition-colors glow-accent">
+                            Crear mi cuenta gratis
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer class="border-t border-border bg-surface py-12 lg:block hidden">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="flex items-center gap-2.5 mb-4">
+                        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
+                            <svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                <path d="M2 12h20"/>
+                            </svg>
+                        </div>
+                        <span class="text-lg font-bold">Tu<span class="text-accent">Quiniela</span></span>
+                    </a>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        La plataforma de pronósticos de fútbol más emocionante. Predice, compite y gana.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-300 mb-4">Plataforma</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Quinielas</a></li>
+                        <li><a href="#como-funciona" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Cómo funciona</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Preguntas frecuentes</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-300 mb-4">Cuenta</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Iniciar sesión</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Registrarse</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Depósitos</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-300 mb-4">Legal</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Términos y condiciones</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Política de privacidad</a></li>
+                        <li><a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Juego responsable</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-600">&copy; 2026 TuQuiniela. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs text-gray-600">🌐 Español</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- MOBILE BOTTOM TAB BAR (< lg)                 -->
+    <!-- ============================================ -->
+    <nav class="bottom-tab-bar fixed bottom-0 inset-x-0 z-50 lg:hidden bg-surface/95 backdrop-blur-md border-t border-border">
+        <div class="flex items-center justify-around h-16 px-2">
+            <!-- Tab: Inicio (active) -->
+            <a href="#" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-accent">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span class="text-[10px] font-medium">Inicio</span>
+            </a>
+
+            <!-- Tab: Quinielas -->
+            <a href="#quinielas" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 6 9 6 9Z"/>
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 18 9 18 9Z"/>
+                    <path d="M4 22h16"/>
+                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/>
+                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/>
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                </svg>
+                <span class="text-[10px] font-medium">Quinielas</span>
+            </a>
+
+            <!-- Tab: Tickets -->
+            <a href="#" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                    <path d="M13 5v2"/>
+                    <path d="M13 17v2"/>
+                    <path d="M13 11v2"/>
+                </svg>
+                <span class="text-[10px] font-medium">Tickets</span>
+            </a>
+
+            <!-- Tab: Saldo -->
+            <a href="#" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-3"/>
+                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+                </svg>
+                <span class="text-[10px] font-medium">Saldo</span>
+            </a>
+
+            <!-- Tab: Perfil -->
+            <a href="#" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="5"/>
+                    <path d="M20 21a8 8 0 0 0-16 0"/>
+                </svg>
+                <span class="text-[10px] font-medium">Perfil</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile footer (simpler, above tab bar) -->
+    <footer class="lg:hidden pb-20 border-t border-border/50 bg-base">
+        <div class="px-4 py-8 text-center">
+            <a href="#" class="inline-flex items-center gap-2 mb-4">
+                <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-accent">
+                    <svg class="h-3.5 w-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        <path d="M2 12h20"/>
+                    </svg>
+                </div>
+                <span class="text-base font-bold">Tu<span class="text-accent">Quiniela</span></span>
+            </a>
+            <div class="flex items-center justify-center gap-4 mb-4">
+                <a href="#" class="text-xs text-gray-500 hover:text-gray-300 transition-colors">Términos</a>
+                <a href="#" class="text-xs text-gray-500 hover:text-gray-300 transition-colors">Privacidad</a>
+                <a href="#" class="text-xs text-gray-500 hover:text-gray-300 transition-colors">Ayuda</a>
+            </div>
+            <p class="text-xs text-gray-600">&copy; 2026 TuQuiniela. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

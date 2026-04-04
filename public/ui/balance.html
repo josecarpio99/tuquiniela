@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Saldo — TuQuiniela</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Instrument Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        base: '#0C0D0F',
+                        surface: { DEFAULT: '#151719', hover: '#1E2023', light: '#1A1C1F' },
+                        border: '#2A2D31',
+                        accent: { DEFAULT: '#10B981', hover: '#059669', light: '#10B98120' },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        @supports (padding-bottom: env(safe-area-inset-bottom)) { .bottom-tab-bar { padding-bottom: calc(0.5rem + env(safe-area-inset-bottom)); } }
+    </style>
+</head>
+<body class="bg-base text-white font-sans antialiased">
+
+    <!-- TOP NAVBAR -->
+    <header class="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur-md">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-6">
+                    <a href="welcome.html" class="flex items-center gap-2.5 shrink-0">
+                        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-accent">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight hidden sm:inline">Tu<span class="text-accent">Quiniela</span></span>
+                    </a>
+                    <nav class="hidden lg:flex items-center gap-1">
+                        <a href="dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-surface-hover transition-colors">Inicio</a>
+                        <a href="quinielas.html" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-surface-hover transition-colors">Quinielas</a>
+                        <a href="tickets.html" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-surface-hover transition-colors">Mis Tickets</a>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="balance.html" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/20 hover:bg-accent/20 transition-colors">
+                        <svg class="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                        <span class="text-sm font-bold text-accent">$50.00</span>
+                    </a>
+                    <div class="relative">
+                        <button class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-surface-hover transition-colors">
+                            <div class="h-8 w-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-semibold text-sm">JD</div>
+                            <span class="hidden sm:inline text-sm font-medium text-gray-300">Juan D.</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="pb-20 lg:pb-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
+
+            <!-- Page header -->
+            <h1 class="text-2xl sm:text-3xl font-bold mb-6">Mi Saldo</h1>
+
+            <div class="grid gap-6 lg:grid-cols-3">
+
+                <!-- Left column: Balance + Transactions (2/3) -->
+                <div class="lg:col-span-2 space-y-6">
+
+                    <!-- Balance card -->
+                    <div class="rounded-xl border border-accent/30 bg-gradient-to-br from-accent/5 to-surface p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div>
+                                <div class="text-sm text-gray-400 mb-1">Saldo disponible</div>
+                                <div class="text-4xl sm:text-5xl font-bold text-accent">$50.00</div>
+                                <div class="text-sm text-gray-500 mt-1">Último depósito: hace 3 días</div>
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="flex items-center gap-2 px-5 py-3 rounded-xl bg-accent hover:bg-accent-hover text-white font-semibold transition-colors">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                                    Depositar
+                                </button>
+                                <button class="flex items-center gap-2 px-5 py-3 rounded-xl border border-border bg-surface hover:bg-surface-hover text-gray-300 font-semibold transition-colors">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                                    Retirar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick stats -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="rounded-xl border border-border bg-surface p-4 text-center">
+                            <div class="text-xs text-gray-500 mb-1">Total depositado</div>
+                            <div class="text-lg font-bold text-white">$120.00</div>
+                        </div>
+                        <div class="rounded-xl border border-border bg-surface p-4 text-center">
+                            <div class="text-xs text-gray-500 mb-1">Premios ganados</div>
+                            <div class="text-lg font-bold text-accent">$100.00</div>
+                        </div>
+                        <div class="rounded-xl border border-border bg-surface p-4 text-center">
+                            <div class="text-xs text-gray-500 mb-1">Gastado en tickets</div>
+                            <div class="text-lg font-bold text-gray-300">$10.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction history -->
+                    <div class="rounded-xl border border-border bg-surface">
+                        <div class="flex items-center justify-between px-5 py-4 border-b border-border">
+                            <h2 class="font-semibold">Historial de transacciones</h2>
+                            <select class="bg-base border border-border rounded-lg px-3 py-1.5 text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-accent">
+                                <option>Todas</option>
+                                <option>Depósitos</option>
+                                <option>Retiros</option>
+                                <option>Compras</option>
+                                <option>Premios</option>
+                            </select>
+                        </div>
+
+                        <div class="divide-y divide-border">
+                            <!-- Prize -->
+                            <div class="flex items-center gap-4 px-5 py-4 hover:bg-surface-hover transition-colors">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 6 9 6 9Z"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 18 9 18 9Z"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-white">Premio — Liga MX Jornada 13</div>
+                                    <div class="text-xs text-gray-500">Hace 3 días · 1er lugar</div>
+                                </div>
+                                <span class="text-sm font-bold text-accent">+$80.00</span>
+                            </div>
+
+                            <!-- Ticket purchase -->
+                            <div class="flex items-center gap-4 px-5 py-4 hover:bg-surface-hover transition-colors">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                                    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-white">Ticket — Liga MX Jornada 15</div>
+                                    <div class="text-xs text-gray-500">Hace 2 días</div>
+                                </div>
+                                <span class="text-sm font-bold text-red-400">-$1.00</span>
+                            </div>
+
+                            <!-- Deposit approved -->
+                            <div class="flex items-center gap-4 px-5 py-4 hover:bg-surface-hover transition-colors">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-white">Depósito aprobado</div>
+                                    <div class="text-xs text-gray-500">Hace 5 días · Transferencia bancaria</div>
+                                </div>
+                                <span class="text-sm font-bold text-accent">+$50.00</span>
+                            </div>
+
+                            <!-- Ticket purchase -->
+                            <div class="flex items-center gap-4 px-5 py-4 hover:bg-surface-hover transition-colors">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                                    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-white">Ticket — Champions Octavos</div>
+                                    <div class="text-xs text-gray-500">Hace 1 semana</div>
+                                </div>
+                                <span class="text-sm font-bold text-red-400">-$2.00</span>
+                            </div>
+
+                            <!-- Ticket purchase x2 -->
+                            <div class="flex items-center gap-4 px-5 py-4 hover:bg-surface-hover transition-colors">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                                    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-white">2× Tickets — Liga MX Jornada 14</div>
+                                    <div class="text-xs text-gray-500">Hace 5 días</div>
+                                </div>
+                                <span class="text-sm font-bold text-red-400">-$2.00</span>
+                            </div>
+
+                            <!-- Prize -->
+                            <div class="flex items-center gap-4 px-5 py-4 hover:bg-surface-hover transition-colors">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 6 9 6 9Z"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 18 9 18 9Z"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-white">Premio — Liga MX Jornada 12</div>
+                                    <div class="text-xs text-gray-500">Hace 2 semanas · 2do lugar</div>
+                                </div>
+                                <span class="text-sm font-bold text-accent">+$20.00</span>
+                            </div>
+
+                            <!-- First deposit -->
+                            <div class="flex items-center gap-4 px-5 py-4 hover:bg-surface-hover transition-colors">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-white">Depósito aprobado</div>
+                                    <div class="text-xs text-gray-500">Hace 3 semanas · Transferencia bancaria</div>
+                                </div>
+                                <span class="text-sm font-bold text-accent">+$70.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right column: Deposit / Withdraw -->
+                <div class="space-y-6">
+
+                    <!-- Deposit form -->
+                    <div class="rounded-xl border border-border bg-surface p-5">
+                        <h3 class="font-semibold mb-4 flex items-center gap-2">
+                            <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                            Hacer un depósito
+                        </h3>
+
+                        <div class="space-y-4">
+                            <!-- Method selection -->
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Método de pago</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-3 p-3 rounded-lg bg-base border-2 border-accent cursor-pointer">
+                                        <input type="radio" name="method" checked class="sr-only">
+                                        <div class="h-5 w-5 rounded-full border-2 border-accent flex items-center justify-center">
+                                            <div class="h-2.5 w-2.5 rounded-full bg-accent"></div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <span class="text-sm font-medium text-white">Transferencia bancaria</span>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 rounded-lg bg-base border border-border cursor-pointer hover:border-gray-500 transition-colors">
+                                        <input type="radio" name="method" class="sr-only">
+                                        <div class="h-5 w-5 rounded-full border-2 border-border"></div>
+                                        <div class="flex-1">
+                                            <span class="text-sm font-medium text-gray-300">Pago móvil</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Amount -->
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Monto a depositar</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-semibold">$</span>
+                                    <input type="number" placeholder="0.00" min="1" class="w-full pl-8 pr-4 py-3 rounded-lg bg-base border border-border text-white text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                </div>
+                                <div class="flex gap-2 mt-2">
+                                    <button class="flex-1 px-3 py-1.5 rounded-lg bg-base border border-border text-sm text-gray-400 hover:text-white hover:border-gray-500 transition-colors">$5</button>
+                                    <button class="flex-1 px-3 py-1.5 rounded-lg bg-base border border-border text-sm text-gray-400 hover:text-white hover:border-gray-500 transition-colors">$10</button>
+                                    <button class="flex-1 px-3 py-1.5 rounded-lg bg-base border border-border text-sm text-gray-400 hover:text-white hover:border-gray-500 transition-colors">$20</button>
+                                    <button class="flex-1 px-3 py-1.5 rounded-lg bg-base border border-border text-sm text-gray-400 hover:text-white hover:border-gray-500 transition-colors">$50</button>
+                                </div>
+                            </div>
+
+                            <!-- Platform payment details (shown after selecting method) -->
+                            <div class="p-4 rounded-lg bg-blue-500/5 border border-blue-500/20">
+                                <div class="text-xs text-blue-400 font-medium mb-2">Datos para transferencia</div>
+                                <div class="space-y-1.5 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Banco</span>
+                                        <span class="text-gray-200 font-medium">BBVA</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Titular</span>
+                                        <span class="text-gray-200 font-medium">TuQuiniela S.A.</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">CLABE</span>
+                                        <span class="text-gray-200 font-medium font-mono">0123 4567 8901 2345 67</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-400">Referencia</span>
+                                        <span class="text-accent font-mono font-bold">JD-5830</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Proof of payment upload -->
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Comprobante de pago</label>
+                                <label class="flex flex-col items-center justify-center gap-2 p-6 rounded-lg bg-base border-2 border-dashed border-border hover:border-accent/50 cursor-pointer transition-colors">
+                                    <svg class="h-8 w-8 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                    <span class="text-sm text-gray-400">Arrastra o haz clic para subir</span>
+                                    <span class="text-xs text-gray-500">PNG, JPG o PDF · Máx 5MB</span>
+                                    <input type="file" class="sr-only" accept="image/*,.pdf">
+                                </label>
+                            </div>
+
+                            <button class="w-full px-4 py-3 rounded-xl bg-accent hover:bg-accent-hover text-white font-semibold transition-colors">
+                                Enviar solicitud de depósito
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Pending deposits -->
+                    <div class="rounded-xl border border-border bg-surface p-5">
+                        <h3 class="font-semibold mb-3 flex items-center gap-2">
+                            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Depósitos pendientes
+                        </h3>
+                        <div class="text-sm text-gray-400 py-6 text-center">
+                            No tienes depósitos pendientes.
+                        </div>
+                    </div>
+
+                    <!-- Withdraw info -->
+                    <div class="rounded-xl border border-border bg-surface p-5">
+                        <h3 class="font-semibold mb-3 flex items-center gap-2">
+                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                            Retiros
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-3">Para solicitar un retiro, necesitas tener un saldo mínimo de <strong class="text-white">$10.00</strong>.</p>
+                        <button class="w-full px-4 py-2.5 rounded-lg border border-border text-gray-300 hover:bg-surface-hover text-sm font-semibold transition-colors">
+                            Solicitar retiro
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- MOBILE BOTTOM TAB BAR -->
+    <nav class="bottom-tab-bar fixed bottom-0 inset-x-0 z-50 lg:hidden bg-surface/95 backdrop-blur-md border-t border-border">
+        <div class="flex items-center justify-around h-16 px-2">
+            <a href="dashboard.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="text-[10px] font-medium">Inicio</span>
+            </a>
+            <a href="quinielas.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 6 9 6 9Z"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 18 9 18 9Z"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                <span class="text-[10px] font-medium">Quinielas</span>
+            </a>
+            <a href="tickets.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+                <span class="text-[10px] font-medium">Tickets</span>
+            </a>
+            <a href="balance.html" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-accent">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                <span class="text-[10px] font-medium">Saldo</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center gap-0.5 min-w-[4rem] py-1 text-gray-500 hover:text-gray-300 transition-colors">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                <span class="text-[10px] font-medium">Perfil</span>
+            </a>
+        </div>
+    </nav>
+
+</body>
+</html>
