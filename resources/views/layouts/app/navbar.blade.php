@@ -23,67 +23,74 @@
                                class="px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('dashboard') ? 'text-white bg-[var(--color-surface-hover)]' : 'text-zinc-400 hover:text-white hover:bg-[var(--color-surface-hover)]' }}">
                                 {{ __('Home') }}
                             </a>
-                            <a href="#"
-                               class="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors">
+                            <a href="{{ route('quinielas.index') }}" wire:navigate
+                               class="px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('quinielas.*') ? 'text-white bg-[var(--color-surface-hover)]' : 'text-zinc-400 hover:text-white hover:bg-[var(--color-surface-hover)]' }}">
                                 {{ __('Quinielas') }}
                             </a>
-                            <a href="#"
-                               class="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-white rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors">
+                            <a href="{{ route('tickets.index') }}" wire:navigate
+                               class="px-4 py-2 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('tickets.*') ? 'text-white bg-[var(--color-surface-hover)]' : 'text-zinc-400 hover:text-white hover:bg-[var(--color-surface-hover)]' }}">
                                 {{ __('My Tickets') }}
                             </a>
                         </nav>
                     </div>
 
                     <div class="flex items-center gap-3">
-                        {{-- Balance pill --}}
-                        <a href="{{ route('balance.history') }}" wire:navigate
-                           class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/20 hover:bg-accent/20 transition-colors"
-                           data-test="navbar-balance">
-                            <svg class="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-                            <span class="text-sm font-bold text-accent">${{ number_format((float) auth()->user()->balanceFloat, 2) }}</span>
-                        </a>
+                        @auth
+                            {{-- Balance pill --}}
+                            <a href="{{ route('balance.history') }}" wire:navigate
+                               class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/20 hover:bg-accent/20 transition-colors"
+                               data-test="navbar-balance">
+                                <svg class="h-4 w-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-3"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+                                <span class="text-sm font-bold text-accent">${{ number_format((float) auth()->user()->balanceFloat, 2) }}</span>
+                            </a>
 
-                        {{-- User dropdown --}}
-                        <flux:dropdown position="bottom" align="end">
-                            <flux:profile
-                                :initials="auth()->user()->initials()"
-                                icon-trailing="chevron-down"
-                            />
+                            {{-- User dropdown --}}
+                            <flux:dropdown position="bottom" align="end">
+                                <flux:profile
+                                    :initials="auth()->user()->initials()"
+                                    icon-trailing="chevron-down"
+                                />
 
-                            <flux:menu>
-                                <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                    <flux:avatar
-                                        :name="auth()->user()->name"
-                                        :initials="auth()->user()->initials()"
-                                    />
-                                    <div class="grid flex-1 text-start text-sm leading-tight">
-                                        <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
-                                        <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
+                                <flux:menu>
+                                    <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                                        <flux:avatar
+                                            :name="auth()->user()->name"
+                                            :initials="auth()->user()->initials()"
+                                        />
+                                        <div class="grid flex-1 text-start text-sm leading-tight">
+                                            <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
+                                            <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <flux:menu.separator />
+                                    <flux:menu.separator />
 
-                                <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                                    {{ __('Settings') }}
-                                </flux:menu.item>
-
-                                <flux:menu.separator />
-
-                                <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                    @csrf
-                                    <flux:menu.item
-                                        as="button"
-                                        type="submit"
-                                        icon="arrow-right-start-on-rectangle"
-                                        class="w-full cursor-pointer"
-                                        data-test="logout-button"
-                                    >
-                                        {{ __('Log out') }}
+                                    <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
+                                        {{ __('Settings') }}
                                     </flux:menu.item>
-                                </form>
-                            </flux:menu>
-                        </flux:dropdown>
+
+                                    <flux:menu.separator />
+
+                                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                                        @csrf
+                                        <flux:menu.item
+                                            as="button"
+                                            type="submit"
+                                            icon="arrow-right-start-on-rectangle"
+                                            class="w-full cursor-pointer"
+                                            data-test="logout-button"
+                                        >
+                                            {{ __('Log out') }}
+                                        </flux:menu.item>
+                                    </form>
+                                </flux:menu>
+                            </flux:dropdown>
+                        @else
+                            <a href="{{ route('login') }}" wire:navigate
+                               class="px-4 py-2 text-sm font-medium rounded-lg bg-accent text-white hover:bg-accent/90 transition-colors">
+                                {{ __('Log in') }}
+                            </a>
+                        @endauth
                     </div>
                 </div>
             </div>

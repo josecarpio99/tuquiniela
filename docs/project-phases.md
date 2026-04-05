@@ -776,13 +776,13 @@ Allow admin to enter final scores for matches in closed quinielas (US-2.5).
 
 ---
 
-## Phase 6: Tickets & Predictions (Player)
+## Phase 6: Tickets & Predictions (Player) [Completed]
 
 **Goal:** Player-facing quiniela browsing, ticket purchase, and prediction submission.
 
 **User Stories:** US-3.1, US-3.2, US-3.3, US-3.4, US-3.5, US-3.6
 
-### Phase 6.1: Browse Available Quinielas
+### Phase 6.1: Browse Available Quinielas [Completed]
 
 List of open quinielas for players and visitors (US-3.1).
 
@@ -803,7 +803,7 @@ List of open quinielas for players and visitors (US-3.1).
 
 ---
 
-### Phase 6.2: Purchase Ticket
+### Phase 6.2: Purchase Ticket [Completed]
 
 Allow players to buy a ticket for a quiniela (US-3.2). Requires wallet interaction → controller with POST action.
 
@@ -825,7 +825,7 @@ Allow players to buy a ticket for a quiniela (US-3.2). Requires wallet interacti
 
 ---
 
-### Phase 6.3: Submit Predictions (By Result)
+### Phase 6.3: Submit Predictions (By Result) [Completed]
 
 Prediction form for "result" mode quinielas (US-3.3). Interactive form → **Livewire component**.
 
@@ -846,7 +846,7 @@ Prediction form for "result" mode quinielas (US-3.3). Interactive form → **Liv
 
 ---
 
-### Phase 6.4: Submit Predictions (By Score)
+### Phase 6.4: Submit Predictions (By Score) [Completed]
 
 Prediction form for "score" mode quinielas (US-3.4). Interactive form → **Livewire component**.
 
@@ -864,7 +864,7 @@ Prediction form for "score" mode quinielas (US-3.4). Interactive form → **Live
 
 ---
 
-### Phase 6.5: Edit Predictions
+### Phase 6.5: Edit Predictions [Completed]
 
 Allow players to edit predictions before quiniela closes (US-3.5).
 
@@ -881,7 +881,7 @@ Allow players to edit predictions before quiniela closes (US-3.5).
 
 ---
 
-### Phase 6.6: View My Tickets
+### Phase 6.6: View My Tickets [Completed]
 
 Player ticket history across all quinielas (US-3.6).
 
@@ -1390,13 +1390,13 @@ Overall player statistics across all quinielas (US-12.3).
 | **Phase 5.3** | Prize Position Management | ✅ Completed |
 | **Phase 5.4** | Quiniela Status Transitions | ✅ Completed |
 | **Phase 5.5** | Enter Match Results | ✅ Completed |
-| **Phase 6** | Tickets & Predictions (Player) | ⬜ Not Started |
-| **Phase 6.1** | Browse Available Quinielas | ⬜ Not Started |
-| **Phase 6.2** | Purchase Ticket | ⬜ Not Started |
-| **Phase 6.3** | Submit Predictions (By Result) | ⬜ Not Started |
-| **Phase 6.4** | Submit Predictions (By Score) | ⬜ Not Started |
-| **Phase 6.5** | Edit Predictions | ⬜ Not Started |
-| **Phase 6.6** | View My Tickets | ⬜ Not Started |
+| **Phase 6** | Tickets & Predictions (Player) | ✅ Completed |
+| **Phase 6.1** | Browse Available Quinielas | ✅ Completed |
+| **Phase 6.2** | Purchase Ticket | ✅ Completed |
+| **Phase 6.3** | Submit Predictions (By Result) | ✅ Completed |
+| **Phase 6.4** | Submit Predictions (By Score) | ✅ Completed |
+| **Phase 6.5** | Edit Predictions | ✅ Completed |
+| **Phase 6.6** | View My Tickets | ✅ Completed |
 | **Phase 7** | Scoring & Prize Distribution | ⬜ Not Started |
 | **Phase 7.1** | Calculate Points (By Result) | ⬜ Not Started |
 | **Phase 7.2** | Calculate Points (By Score) | ⬜ Not Started |
