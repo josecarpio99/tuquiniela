@@ -179,5 +179,81 @@
     "Terms and conditions": "Términos y condiciones",
     "Privacy policy": "Política de privacidad",
     "All rights reserved.": "Todos los derechos reservados.",
-    "Welcome": "Bienvenido"
+    "Welcome": "Bienvenido",
+
+    "Quiniela": "Quiniela",
+    "Prediction Type": "Tipo de pronóstico",
+    "Ticket Cost": "Costo de ticket",
+    "Tickets Sold": "Tickets vendidos",
+    "Closing At": "Cierre",
+    "Prize Type": "Tipo de premio",
+
+    "General": "General",
+    "Points": "Puntos",
+    "Prize": "Premio",
+
+    "Points Correct Result": "Puntos por resultado correcto",
+    "Points Exact Score": "Puntos por marcador exacto",
+    "Points Wrong": "Puntos por desacierto",
+    "Prize Pool Amount": "Monto total del premio",
+    "Prize Pool Percentage": "Porcentaje del premio",
+
+    "Open": "Abrir",
+    "Close": "Cerrar",
+    "Cannot open quiniela without matches": "No se puede abrir una quiniela sin partidos",
+    "Cannot open quiniela without prize positions": "No se puede abrir una quiniela sin posiciones de premio",
+    "Cannot open quiniela with past closing date": "No se puede abrir una quiniela con fecha de cierre pasada",
+    "Quiniela opened successfully": "Quiniela abierta correctamente",
+    "Quiniela closed successfully": "Quiniela cerrada correctamente",
+
+    "Prize Positions": "Posiciones de premio",
+    "Position": "Posición",
+    "Percentage": "Porcentaje",
+
+    "Matches": "Partidos",
+    "Team 1": "Equipo 1",
+    "Team 2": "Equipo 2",
+    "Match Date": "Fecha del partido",
+    "Sort Order": "Orden",
+    "#": "#",
+    "Score 1": "Marcador 1",
+    "Score 2": "Marcador 2",
+    "Enter Result": "Ingresar resultado",
+    "Team 1 Score": "Marcador Equipo 1",
+    "Team 2 Score": "Marcador Equipo 2",
+    "Result saved": "Resultado guardado",
+
+    "Create match": "Crear partido",
+    "Edit match": "Editar partido",
+    "Delete match": "Eliminar partido",
+    "Create prize position": "Crear posición de premio",
+    "Edit prize position": "Editar posición de premio",
+    "Delete prize position": "Eliminar posición de premio",
+
+    "enums": {
+        "prediction_type": {
+            "result": "Por resultado",
+            "score": "Por marcador"
+        },
+        "prize_type": {
+            "fixed": "Monto fijo",
+            "percentage": "Porcentaje"
+        },
+        "quiniela_status": {
+            "draft": "Borrador",
+            "open": "Abierta",
+            "closed": "Cerrada",
+            "completed": "Completada"
+        },
+        "match_result": {
+            "team1": "Equipo 1",
+            "team2": "Equipo 2",
+            "draw": "Empate"
+        },
+        "transaction_status": {
+            "pending": "Pendiente",
+            "approved": "Aprobado",
+            "rejected": "Rechazado"
+        }
+    }
 }

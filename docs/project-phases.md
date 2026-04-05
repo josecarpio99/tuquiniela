@@ -672,13 +672,13 @@ Document the design patterns to be followed for all player-facing views.
 
 ---
 
-## Phase 5: Quiniela Management (Admin)
+## Phase 5: Quiniela Management (Admin) [Completed]
 
 **Goal:** Full admin CRUD for quinielas, matches, prize configuration, status transitions, and result entry.
 
 **User Stories:** US-2.1, US-2.2, US-2.3, US-2.4, US-2.5, US-5.1, US-11.2
 
-### Phase 5.1: Quiniela Filament Resource
+### Phase 5.1: Quiniela Filament Resource [Completed]
 
 **Resource: `QuinielaResource`**
 - **Table columns:** name, prediction_type, ticket_cost, tickets_sold (count), status, closing_at, prize_type
@@ -699,7 +699,7 @@ Document the design patterns to be followed for all player-facing views.
 
 ---
 
-### Phase 5.2: Match Management (Relation Manager)
+### Phase 5.2: Match Management (Relation Manager) [Completed]
 
 Add a relation manager on `QuinielaResource` for managing matches.
 
@@ -719,7 +719,7 @@ Add a relation manager on `QuinielaResource` for managing matches.
 
 ---
 
-### Phase 5.3: Prize Position Management (Relation Manager)
+### Phase 5.3: Prize Position Management (Relation Manager) [Completed]
 
 Add a relation manager on `QuinielaResource` for configuring prize positions.
 
@@ -737,7 +737,7 @@ Add a relation manager on `QuinielaResource` for configuring prize positions.
 
 ---
 
-### Phase 5.4: Quiniela Status Transitions
+### Phase 5.4: Quiniela Status Transitions [Completed]
 
 Implement status transition logic with validation (US-2.3, US-2.4).
 
@@ -759,7 +759,7 @@ Implement status transition logic with validation (US-2.3, US-2.4).
 
 ---
 
-### Phase 5.5: Enter Match Results
+### Phase 5.5: Enter Match Results [Completed]
 
 Allow admin to enter final scores for matches in closed quinielas (US-2.5).
 
