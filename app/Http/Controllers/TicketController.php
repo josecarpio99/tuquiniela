@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Actions\Tickets\PurchaseTicket;
 use App\Models\Quiniela;
 use App\Models\Ticket;
 use Bavix\Wallet\Exceptions\BalanceIsEmpty;
@@ -44,22 +45,13 @@ final class TicketController extends Controller
 
     public function store(Request $request, Quiniela $quiniela): RedirectResponse
     {
-        abort_if(! $quiniela->isOpen(), 403, __('This quiniela is not open for ticket purchases.'));
-
         $user = $request->user();
 
         try {
-            $user->withdrawFloat($quiniela->ticket_cost, [
-                'reason' => __('Ticket purchase: :name', ['name' => $quiniela->name]),
-                'quiniela_id' => $quiniela->id,
-            ]);
+            $ticket = (new PurchaseTicket)->execute($user, $quiniela);
         } catch (InsufficientFunds|BalanceIsEmpty) {
             return back()->with('error', __('Insufficient balance to purchase this ticket. Please deposit funds first.'));
         }
-
-        $ticket = $quiniela->tickets()->create([
-            'user_id' => $user->id,
-        ]);
 
         return redirect()->route('tickets.predictions', $ticket)
             ->with('success', __('Ticket purchased successfully! Now submit your predictions.'));
