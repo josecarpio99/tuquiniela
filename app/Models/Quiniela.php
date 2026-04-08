@@ -54,7 +54,24 @@ final class Quiniela extends Model
 
     public function scopeOpen(Builder $query): Builder
     {
-        return $query->where('status', QuinielaStatus::Open);
+        return $query->where('status', QuinielaStatus::Open)
+            ->where(function (Builder $query) {
+                $query->whereNull('closing_at')
+                    ->orWhere('closing_at', '>', now());
+            });
+    }
+
+    public function isOpen(): bool
+    {
+        if ($this->status !== QuinielaStatus::Open) {
+            return false;
+        }
+
+        if ($this->closing_at && $this->closing_at->isPast()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function scopeClosed(Builder $query): Builder

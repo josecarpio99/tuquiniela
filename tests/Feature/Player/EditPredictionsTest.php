@@ -69,6 +69,24 @@ it('cannot edit predictions after quiniela closes', function () {
         ->assertForbidden();
 });
 
+it('cannot edit predictions after closing date passes', function () {
+    $this->quiniela->update([
+        'status' => QuinielaStatus::Open,
+        'closing_at' => now()->subMinute(),
+    ]);
+    $this->actingAs($this->user);
+
+    $predictions = [];
+    foreach ($this->matches as $match) {
+        $predictions[$match->id] = MatchResult::Team2->value;
+    }
+
+    Livewire::test('pages::tickets.predictions', ['ticket' => $this->ticket])
+        ->set('predictions', $predictions)
+        ->call('submit')
+        ->assertForbidden();
+});
+
 it('pre-fills existing predictions', function () {
     $this->actingAs($this->user);
 

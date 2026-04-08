@@ -47,6 +47,39 @@ it('cannot purchase a ticket for a closed quiniela', function () {
     $response->assertForbidden();
 });
 
+it('cannot purchase a ticket for an open quiniela that has reached its closing date', function () {
+    $user = User::factory()->create();
+    $user->depositFloat(100.00, ['reason' => 'Test deposit']);
+    $quiniela = Quiniela::factory()->open()->create([
+        'closing_at' => now()->subMinute(),
+        'ticket_cost' => '10.00'
+    ]);
+
+    $this->actingAs($user);
+
+    $response = $this->post(route('tickets.store', $quiniela));
+
+    $response->assertForbidden();
+    expect(Ticket::where('user_id', $user->id)->exists())->toBeFalse();
+});
+
+it('can purchase a ticket for an open quiniela that has not yet reached its closing date', function () {
+    $user = User::factory()->create();
+    $user->depositFloat(100.00, ['reason' => 'Test deposit']);
+    $quiniela = Quiniela::factory()->open()->create([
+        'closing_at' => now()->addHour(),
+        'ticket_cost' => '10.00'
+    ]);
+    QuinielaMatch::factory()->for($quiniela)->create();
+
+    $this->actingAs($user);
+
+    $response = $this->post(route('tickets.store', $quiniela));
+
+    $response->assertRedirect();
+    expect(Ticket::where('user_id', $user->id)->exists())->toBeTrue();
+});
+
 it('can purchase multiple tickets for the same quiniela', function () {
     $user = User::factory()->create();
     $user->depositFloat(100.00, ['reason' => 'Test deposit']);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Enums\QuinielaStatus;
 use App\Models\Quiniela;
 use App\Models\Ticket;
 use Bavix\Wallet\Exceptions\BalanceIsEmpty;
@@ -45,7 +44,7 @@ final class TicketController extends Controller
 
     public function store(Request $request, Quiniela $quiniela): RedirectResponse
     {
-        abort_if($quiniela->status !== QuinielaStatus::Open, 403, __('This quiniela is not open for ticket purchases.'));
+        abort_if(! $quiniela->isOpen(), 403, __('This quiniela is not open for ticket purchases.'));
 
         $user = $request->user();
 

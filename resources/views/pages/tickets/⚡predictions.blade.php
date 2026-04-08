@@ -60,7 +60,7 @@ new #[Title('Submit Predictions')] class extends Component {
     #[Computed]
     public function isLocked(): bool
     {
-        return $this->ticket->quiniela->status !== QuinielaStatus::Open;
+        return !$this->ticket->quiniela->isOpen();
     }
 
     public function submit(): void
@@ -68,7 +68,7 @@ new #[Title('Submit Predictions')] class extends Component {
         $ticket = $this->ticket;
 
         abort_if($ticket->user_id !== Auth::id(), 403);
-        abort_if($ticket->quiniela->status !== QuinielaStatus::Open, 403);
+        abort_if(!$ticket->quiniela->isOpen(), 403);
 
         $matches = $ticket->quiniela->matches;
 
