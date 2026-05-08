@@ -17,7 +17,7 @@ final class CloseExpiredQuinielas extends Command
     public function handle(): int
     {
         $count = Quiniela::query()
-            ->open()
+            ->where('status', QuinielaStatus::Open)
             ->where('closing_at', '<=', now())
             ->update(['status' => QuinielaStatus::Closed]);
 
