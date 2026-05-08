@@ -16,6 +16,7 @@ final class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             PaymentMethodSeeder::class,
             TeamSeeder::class,
+            QuinielaSeeder::class,
         ]);
 
         User::factory()->create([
